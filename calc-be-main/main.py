@@ -6,11 +6,16 @@ from apps.calculator.route import router as calculator_router
 from constants import SERVER_URL, PORT, ENV
 
 try:
-    import genai
-    genai.configure(api_key="AIzaSyAb3q51x6xYCgnmds9wJV6xhTWNiaMDdzk")  # Use the provided API key
+    import google.generativeai as genai
+    if hasattr(genai, "configure"):
+        genai.configure(api_key="AIzaSyAb3q51x6xYCgnmds9wJV6xhTWNiaMDdzk")  # Use the provided API key
+    else:
+        raise AttributeError("The 'genai' library does not support the 'configure' method.")
 except ImportError:
     genai = None
     print("Warning: 'genai' library is not installed. Some features may not work.")
+except AttributeError as e:
+    print(f"Error: {str(e)}")
 
 
 @asynccontextmanager

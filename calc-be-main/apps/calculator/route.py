@@ -69,6 +69,9 @@ async def search(payload: dict):
         # Log the raw response for debugging
         print("Gemini API raw response:", response)
 
+        if not hasattr(response, "text"):
+            raise ValueError("Invalid response format from Gemini API.")
+
         return {"result": response.text, "status": "success"}
     except Exception as e:
         print("Error in /search endpoint:", str(e))
