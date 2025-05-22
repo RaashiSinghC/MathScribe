@@ -750,8 +750,16 @@ export default function Home() {
                     {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                 </Button>
             </div>
-            <div className="flex w-full h-full pt-52" style={{ height: 'calc(100vh - 10rem)' }}>
-                <div className="flex-1 relative">
+            <div
+                className="fixed left-0 w-full"
+                style={{
+                    top: 92, // toolbar height (top-20 + padding)
+                    bottom: 0,
+                    height: 'auto',
+                    zIndex: 10,
+                }}
+            >
+                <div className="relative w-full h-full" style={{ height: "100%" }}>
                     <canvas
                         ref={canvasRef}
                         id="canvas"
@@ -763,7 +771,10 @@ export default function Home() {
                         style={{
                             cursor: tool === 'eraser' ? 'cell' : tool === 'fill' ? 'crosshair' : tool === 'text' ? 'text' : 'crosshair',
                             background: "rgba(255,255,255,0.85)",
-                            transition: "box-shadow 0.2s, border 0.2s"
+                            transition: "box-shadow 0.2s, border 0.2s",
+                            width: "100%",
+                            height: "100%",
+                            display: "block"
                         }}
                     />
                     {isTextEditing && textPosition && (
